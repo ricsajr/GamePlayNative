@@ -21,6 +21,8 @@ type Props = {
 
 export function Member({ data }: Props){
 
+    const { on, primary } = theme.colors
+
     const isOnline = data.status === 'online'
   
  
@@ -28,15 +30,26 @@ export function Member({ data }: Props){
     <View style={styles.container}>
         <Avatar urlImage={data.avatar_url}/>
 
-        <View style={styles.status}>
-        <View>
+        <View >
+        
             <Text style={styles.title}>
                 {data.username}
             </Text>
-        </View>
-            <Text style={styles.nameStatus}>
-                {isOnline ? 'Disponível' : 'Ocupado'}
-            </Text>
+
+            <View style={styles.status}>
+
+                <View
+                    style={[
+                        styles.bulletStatus,
+                        {
+                            backgroundColor: isOnline ? on : primary
+                        }
+                    ]}
+                />
+                <Text style={styles.nameStatus}>
+                    {isOnline ? 'Disponível' : 'Ocupado'}
+                </Text>
+            </View>    
            
         </View>
     </View>

@@ -12,6 +12,7 @@ import { Header } from '../../components/Header';
 import { ListHeader } from '../../components/ListHeader';
 import { Member } from "../../components/Member";
 import { ListDivider } from "../../components/ListDivider";
+import { ButtonIcon } from "../../components/ButtonIcon";
 
 export function AppointmentDetails(){
 
@@ -63,17 +64,24 @@ export function AppointmentDetails(){
           title="Jogadores"
           subtitle="total 3"
         />
-        <FlatList
-          data={members}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-              <Member
-                data={item}
-              />
-          )}
-          ItemSeparatorComponent={() => <ListDivider/>}
-          style={styles.members}
-        />
+        <View>
+          <FlatList
+            data={members}
+            keyExtractor={item => item.id}
+            renderItem={({ item }) => (
+                <Member
+                  data={item}
+                />
+            )}
+            ItemSeparatorComponent={() => <ListDivider/>}
+            style={styles.members}
+          />
+        </View>  
+        <View style={styles.footer}>
+          <ButtonIcon
+            title="Entrar na partida"
+          />
+        </View>
     </Background>
   )
 }
