@@ -16,17 +16,30 @@ import { theme } from "../../global/styles/theme";
 import { styles } from './styles'
 
 
-import { Background } from '../../components/Background';
+import { ModalView } from '../../components/ModalView';
 import { GuildIcon } from '../../components/GuildIcon';
 import { Header } from '../../components/Header';
 import { CategorySelect } from '../../components/CategorySelect';
 import { SmallInput } from '../../components/SmallInput';
 import { TextArea } from '../../components/TextArea';
 import { Button } from '../../components/Button';
+import { Guilds } from '../Guilds';
+import { GuildProps } from "../../components/Guild";
 
 export function AppointmentCreate(){
 
-  const [category, setCategory] = useState('')
+  const [category, setCategory] = useState('');
+  const [openGuildsModal, setOpenGuildsModal] = useState(false)
+  const [ guild, setGuild] = useState<GuildProps>({} as GuildProps)
+
+  function handleOpenGuilds (){
+    setOpenGuildsModal(true)
+  }
+
+  function handleGuildSelect(guildSelected: GuildProps){
+    setGuild(guildSelected)
+    setOpenGuildsModal(false)
+  }
 
   function handleCategorySelect(categoryId: string){
     categoryId === category ? setCategory('') : setCategory(categoryId)
@@ -55,7 +68,7 @@ export function AppointmentCreate(){
         />
 
         <View style={styles.form}>
-          <RectButton>
+          <RectButton onPress={handleOpenGuilds}>
             <View style={styles.select}>
 
             {
@@ -126,7 +139,10 @@ export function AppointmentCreate(){
               />
             </View>
           </View>
-      </ScrollView>  
+      </ScrollView> 
+      <ModalView visible={openGuildsModal}>
+          <Guilds handleGuildSelected={handleGuildSelect}/>
+      </ModalView>
       
     </KeyboardAvoidingView>  
   )
